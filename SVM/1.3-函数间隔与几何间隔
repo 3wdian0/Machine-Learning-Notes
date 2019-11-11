@@ -1,0 +1,82 @@
+* 超平面：`$w^Tx+b=0$`
+* 点x到超平面的距离的远近：`$|w^Tx+b|$`
+* 分类的正确性度量：`$y(w^Tx+b)$`
+
+## 函数间隔定义：
+```math
+\widehat\gamma=y(w^Tx+b)=yf(x)
+```
+超平面`$(w,b)$`关于训练集T中所有样本点`$(x_i,y_i)$`的函数间隔最小值，是超平面关于训练数据集T的函数间隔：
+```math
+\widehat\gamma=min \;\widehat\gamma_i \;\;(i=1,...,n)
+```
+
+但是把（线性可分的）数据分开的的超平面`$w^Tx+b$`不是唯一的，超平面`$2w^Tx+2b=2(w^Tx+b)$`同样可以把数据正确分开。 
+
+（能用一个超平面把数据分开的数据，则说明数据是线性可分的）
+
+
+对法向量w加约束，引出真正定义上的点到超平面的距离——**几何间隔**。
+
+
+## 几何间隔定义
+&emsp;&emsp;假定对于一个点x，令其垂直投影到超平面上的对应点为`$x_0$`，`$w$`是垂直于超平面的一个向量，`$\gamma$`为样本到超平面的距离。
+* ![image](http://note.youdao.com/yws/res/18378/CCF90F406150418A9CD2FC9F813B3F51)
+
+
+* `$x=x_0+\gamma\frac{w}{||w||}$`
+
+
+```math
+\because x_0在超平面上
+
+\therefore w^Tx_0+b=0
+
+\therefore x_0=-\frac{b}{w}
+
+\therefore x=-\frac{b}{w}+\gamma\frac{w}{||w||}
+
+\therefore x+\frac b w=\gamma\frac w {||w||}
+
+\therefore \frac {w^Tx+b}{w}=\gamma \frac{w}{||w||}
+
+\therefore \frac {w^Tx+b}{\frac {w\times w} {||w||}}=\gamma
+
+\because \frac{w\times w}{||w||}=\frac{w_1^2+w_2^2+...+w_n^2}{\sqrt{w_1^2+w_2^2+...+w_n^2}}=\sqrt{w_1^2+w_2^2+...+w_n^2}=||w||
+
+\therefore \gamma = \frac {w^Tx+b}{||w||}
+```
+
+为了得到`$\gamma$`的绝对值，令`$\gamma$`乘上对应的类别`$y$`，即可得到几何间隔`$\widetilde\gamma$`的定义：
+```math
+\widetilde \gamma=y\gamma=\frac {\widehat \gamma}{||w||}
+```
+
+函数间隔`$\widehat\gamma=y(w^Tx+b)=yf(x)=|f(x)|$`只是人为定义的一个间隔度量
+
+几何间隔`$\widetilde\gamma=|f(x)|/||w||$`才是直观上的点到超平面的距离
+
+
+## 1.4 最大（几何）间隔分类器的定义
+maximun margin classifier的目标函数定义为：
+```math
+max\;\widetilde\gamma
+
+\because 函数间隔的定义
+
+\therefore \widehat\gamma\le\widehat\gamma_i=y_i(w^Tx_i+b),\;i=1,...,n
+
+\because 几何间隔的定义
+
+\therefore \widetilde\gamma=\frac{\widehat\gamma}{||w||}
+
+若令\widehat\gamma=1
+
+则有\widetilde\gamma=\frac{1}{||w||},\; 且1\le y_i(w^Tx_i+b),\;i=1,...,n
+
+\therefore max\frac{1}{||w||}\; s.t.\; y_i(w^Tx_i+b)\ge1,i=1,...,n
+```
+
+* ![image](http://note.youdao.com/yws/res/18424/5E61ECF85F6641A3942A518D0F421EB4)
+* 中间的超平面，便是（Optimal Hyper Plane），其到两条虚线的距离相等，这个距离就是几何间隔`$\widetilde\gamma$`
+* 虚线上的点就是支持向量机。这些点满足`$y(w^Tx+b)=1$`
